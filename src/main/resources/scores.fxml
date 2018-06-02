@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.net.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.effect.*?>
-<?import javafx.scene.image.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane id="AnchorPane" fx:id="form2" minHeight="421.0" prefHeight="321.0" prefWidth="338.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoresController">
+<AnchorPane id="AnchorPane" fx:id="form2" minHeight="421.0" prefHeight="321.0" prefWidth="338.0" styleClass="background" stylesheets="@DarkTheme.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ScoresController">
   <children>
     <TableView fx:id="scoresTable" layoutX="4.0" layoutY="43.0" opacity="0.63" prefHeight="297.0" prefWidth="330.0">
       <columns>
@@ -21,11 +18,9 @@
         <DropShadow height="51.34528459821429" radius="25.17560686383929" width="51.35714285714286" />
       </effect>
     </TableView>
-    <Pane fx:id="namePane" layoutX="4.0" layoutY="258.0" prefHeight="57.000099999997474" prefWidth="290.0" />
-  <TextField id="gamerName" layoutX="14.0" layoutY="374.0" opacity="0.57" prefHeight="33.0" prefWidth="136.0" fx:id="x1" />
-  <Button id="saveBtn" defaultButton="true" layoutX="152.0" layoutY="371.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="64.0" text="ok" />
-  <Button id="cancelBtn" cancelButton="true" layoutX="216.0" layoutY="371.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="110.0" text="cancel" />
-  <Label labelFor="$x1" layoutX="14.0" layoutY="350.0" text="enter your name" textFill="#c31a1a" textOverrun="CLIP" />
-      <Label layoutX="119.0" layoutY="14.0" text="HALL OF FAME" />
+   
+  
+  <Button id="continue" defaultButton="true" layoutX="126.0" layoutY="340.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="64.0" text="continue" />
+
   </children>
 </AnchorPane>
