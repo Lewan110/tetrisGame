@@ -80,6 +80,7 @@ public class FXMLController implements Initializable, Observer {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
         drawBackground();
+
         paceSlider.setMin(0);
         paceSlider.setMax(1000);
         paceSlider.setValue(0);
