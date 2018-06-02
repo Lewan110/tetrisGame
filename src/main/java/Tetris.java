@@ -16,6 +16,7 @@ public class Tetris extends Observable {
     double score = 0;
     private int rowsCleared;
     private int level;
+    private double pace=0;
     private Cell[][] field;
     private Tetrimino curTetrimino;
     private Tetrimino nextTetrimino;
@@ -228,8 +229,8 @@ public class Tetris extends Observable {
         notifyObserver();
     }
 
-    public long getGameSpeed() {
-        return (displayTimePerFrameMillis - level * 50) * 1000000;
+    public Long getGameSpeed() {
+        return ((displayTimePerFrameMillis - (level * 50)-(long)pace) * 1000000);
     }
 
     public void enterGameLoop(long now) {
@@ -300,6 +301,10 @@ public class Tetris extends Observable {
         } else if (gameAction == GameAction.RESET) {
             resetGame();
         }
+    }
+
+    public void setPace(double pace) {
+        this.pace = pace;
     }
 
     public GameState getCurrentState() {

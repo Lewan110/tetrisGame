@@ -8,10 +8,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -45,6 +42,8 @@ public class FXMLController implements Initializable, Observer {
     Label currentScoreLabel;
     @FXML
     Label hiScoreLabel;
+    @FXML
+     Slider paceSlider;
             
     AnimationTimer  animationTimer;   
     Canvas          canvas          = new Canvas(20 * 10, 20 * 20);
@@ -54,7 +53,7 @@ public class FXMLController implements Initializable, Observer {
     Tetris          tetris;
     Image           image           = new Image("tetris-background.png");
     HiScores        hiscores        = new HiScores();
-    Node          scoresDialogBox;        
+    Node          scoresDialogBox;
     
     public FXMLController() throws IOException {
         tetris = new Tetris(10, 20, new JavaFxCanvas(canvas));
@@ -81,6 +80,9 @@ public class FXMLController implements Initializable, Observer {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
         drawBackground();
+        paceSlider.setMin(0);
+        paceSlider.setMax(1000);
+        paceSlider.setValue(0);
     }
 
     @FXML
@@ -102,7 +104,7 @@ public class FXMLController implements Initializable, Observer {
                 stopGame();              
                 updateHallOfFame(g);            
             }
-            
+            tetris.setPace(paceSlider.getValue());
             currentScoreLabel.setText("score : " + g.score);
             hiScoreLabel.setText("top " + Math.max(hiscores.getGamers()[0].getScore(), g.score) );
             levelLabel.setText(Integer.toString(g.level));
