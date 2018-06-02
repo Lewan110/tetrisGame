@@ -16,6 +16,7 @@ public class JavaFxCanvas  {
         this.canvas = canvas; 
         sprites=new Image[7];
         //test
+
         sprites[0]=new Image("1.png");
         sprites[1]=new Image("2.png");
         sprites[2]=new Image("3.png");
