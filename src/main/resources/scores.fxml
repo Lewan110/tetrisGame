@@ -20,7 +20,7 @@
     </TableView>
 
 
-  <Button id="continue" defaultButton="true" layoutX="66.0" layoutY="340.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="200.0" text="Jeszcze raz" />
+  <Button id="continue" defaultButton="true" layoutX="66.0" layoutY="340.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="200.0" text="Koniec" />
 
   </children>
 </AnchorPane>
