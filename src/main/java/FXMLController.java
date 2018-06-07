@@ -48,12 +48,12 @@ public class FXMLController implements Initializable, Observer {
      Slider paceSlider;
             
     AnimationTimer  animationTimer;   
-    Canvas          canvas          = new Canvas(20 * 10, 20 * 20);
-    Canvas          canvas2         = new Canvas(80, 80);
+    Canvas          canvas          = new Canvas(200, 400); // obszar gry
+    Canvas          canvas2         = new Canvas(80, 80);   //next panel
     JavaFxCanvas    canvasFX        = new JavaFxCanvas(canvas2);
-    Canvas          background      = new Canvas(canvas.getWidth(), canvas.getHeight());
+    Canvas          background      = new Canvas(canvas.getWidth(), canvas.getHeight());    //tło
     Tetris          tetris;
-    Image           image           = new Image("tetris-background.png");
+    Image           image           = new Image("tetris-background.png");       //obraz tłą
     HiScores        hiscores        = new HiScores();
     Node          scoresDialogBox;
     Node          welcomeBox;
@@ -81,15 +81,16 @@ public class FXMLController implements Initializable, Observer {
         };
         hiscores.getTopGamers();
         try {
-            welcomeBox = FXMLLoader.load(FXMLController.class.getResource("welcome.fxml"));
+            welcomeBox = FXMLLoader.load(FXMLController.class.getResource("welcome.fxml")); //ładowanie okna ,,powitalnego"
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
-            scoresDialogBox = FXMLLoader.load(FXMLController.class.getResource("scores.fxml"));
+            scoresDialogBox = FXMLLoader.load(FXMLController.class.getResource("scores.fxml")); //Ładowanie okna wyników po zakończeniu gry
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         drawBackground();
 
         paceSlider.setMin(0);
@@ -147,14 +148,14 @@ public class FXMLController implements Initializable, Observer {
             gamer.setName(gamerName.getText());
 
             hideWelcomeBox();
-            tetris.HandleAction(GameAction.RESET);
+            tetris.HandleAction(Akcje.RESET);
             startGame();
         });
 
         cancelBtn.setOnAction((ActionEvent event) -> {
             gamer.setName("no name");
             hideWelcomeBox();
-            tetris.HandleAction(GameAction.RESET);
+            tetris.HandleAction(Akcje.RESET);
             startGame();
         });
 
@@ -162,7 +163,7 @@ public class FXMLController implements Initializable, Observer {
     public void showScoresDialog(final GameState gameState, final int row) {
         final ObservableList<Gamer> gamersData = FXCollections.observableArrayList();
                 
-            //fill the tableview with the names of best gamers
+            //Wypełnij tabele imioname najlepszych graczy
             final TableView scoresTable = (TableView) scoresDialogBox.lookup("#scoresTable");
             Button continueBtn = (Button) scoresDialogBox.lookup("#continue");
             //todo dodaje sie tylko po przycisku, trzeba zrobic by sie dodawalo po przejsciu na tablice wynikow
@@ -189,7 +190,7 @@ public class FXMLController implements Initializable, Observer {
                 hiscores.saveTopGamers();
             }
             hideScoresDialogBox();
-            tetris.HandleAction(GameAction.RESET);
+            tetris.HandleAction(Akcje.RESET);
             startGame();
         });
             

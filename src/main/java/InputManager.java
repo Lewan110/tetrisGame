@@ -11,24 +11,24 @@ public class InputManager implements EventHandler<KeyEvent>{
     }
     
 
-    public GameAction mapKeysToGameAction(KeyEvent t) {
+    public Akcje mapKeysToGameAction(KeyEvent t) {
 
         if (t.getCode() == KeyCode.LEFT) {
-            return GameAction.GO_LEFT;
+            return Akcje.GO_LEFT;
         } else if (t.getCode() == KeyCode.RIGHT) {
-            return GameAction.GO_RIGHT;
+            return Akcje.GO_RIGHT;
         } else if (t.getCode() == KeyCode.SPACE) {
-            return GameAction.ROTATE;
+            return Akcje.ROTATE;
         } else if (t.getCode() == KeyCode.DOWN) {
-            return GameAction.GO_DOWN;
+            return Akcje.GO_DOWN;
         }
         else if (t.getCode() == KeyCode.CONTROL) {
-            return GameAction.PAUSE;
+            return Akcje.PAUSE;
         }
         else if (t.getCode() == KeyCode.F2) {
-            return GameAction.RESET;
+            return Akcje.RESET;
         }
-        return GameAction.NONE;
+        return Akcje.NONE;
     }
 
     @Override

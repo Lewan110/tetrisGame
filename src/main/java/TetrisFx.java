@@ -32,7 +32,7 @@ public class TetrisFx extends Application {
         Parent root;
         Scene scene;
         
-        FXMLLoader loader = new FXMLLoader(TetrisFx.class.getResource("MainForm.fxml"), null);
+        FXMLLoader loader = new FXMLLoader(TetrisFx.class.getResource("MainForm.fxml"));
         controller.getTetris().setObserver(controller);
         loader.setController(controller);
         controller.getTetris().addObserver(controller);
@@ -42,10 +42,7 @@ public class TetrisFx extends Application {
         scene = new Scene(root);
         
         primaryStage.setScene(scene);
-        
-        
         primaryStage.setResizable(false);
-        primaryStage.sizeToScene();
         primaryStage.show();
         
         primaryStage.setTitle("TETRIS");

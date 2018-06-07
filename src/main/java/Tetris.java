@@ -275,30 +275,30 @@ public class Tetris extends Observable {
         }
     }
 
-    public void HandleAction(GameAction gameAction) {
+    public void HandleAction(Akcje akcje) {
         keyTyped = true;
-        if (gameAction == GameAction.GO_LEFT) {
+        if (akcje == Akcje.GO_LEFT) {
             padding = -1;
 
-        } else if (gameAction == GameAction.GO_RIGHT) {
+        } else if (akcje == Akcje.GO_RIGHT) {
             padding = 1;
-        } else if (gameAction == GameAction.ROTATE) {
+        } else if (akcje == Akcje.ROTATE) {
             Tetrimino t = curTetrimino.clone();
             if (isPossibleToDrawTetriminoAt(t.rotateClockWise(),
                     new Position(curPos.x, curPos.y))) {
                 curTetrimino.rotateClockWise();
             }
 
-        } else if (gameAction == GameAction.GO_DOWN) {
+        } else if (akcje == Akcje.GO_DOWN) {
             while (isPossibleToDrawTetriminoAt(curTetrimino,
                     new Position(curPos.x, curPos.y + 1))) {
                 curPos.y = curPos.y + 1;
             }
-        } else if (gameAction == GameAction.PAUSE) {
+        } else if (akcje == Akcje.PAUSE) {
             gamePaused = !gamePaused;
 
 
-        } else if (gameAction == GameAction.RESET) {
+        } else if (akcje == Akcje.RESET) {
             resetGame();
         }
     }
