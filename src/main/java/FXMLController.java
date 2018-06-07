@@ -91,7 +91,7 @@ public class FXMLController implements Initializable, Observer {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        drawBackground();
+        rysujTlo();
     }
 
     @FXML
@@ -99,7 +99,7 @@ public class FXMLController implements Initializable, Observer {
         tetris.input.handle(e);
     }
 
-    private void drawBackground() {
+    private void rysujTlo() {
         GraphicsContext gc = background.getGraphicsContext2D();
         gc.drawImage(image, 0, 0, background.getWidth(), background.getHeight());
     }
@@ -158,32 +158,34 @@ public class FXMLController implements Initializable, Observer {
     public void showScoresDialog(final StatusGry statusGry, final int row) {
         final ObservableList<Gracz> gamersData = FXCollections.observableArrayList();
                 
-            //Wypełnij tabele imioname najlepszych graczy
+            //Wypełnij tabele imion najlepszych graczy
             final TableView scoresTable = (TableView) scoresDialogBox.lookup("#scoresTable");
             Button continueBtn = (Button) scoresDialogBox.lookup("#continue");
-            //todo dodaje sie tylko po przycisku, trzeba zrobic by sie dodawalo po przejsciu na tablice wynikow
-
-
 
             Gracz[] t = hiscores.getGraczs();
             gamersData.addAll(t);
-            scoresTable.setItems(gamersData);  
+            scoresTable.setItems(gamersData);
             mainPane.getChildren().add(scoresDialogBox);
 
-        continueBtn.setOnAction((ActionEvent event) -> {
-            if (statusGry !=null) {
-                gracz.setScore(statusGry.score);
-                gracz.setLevel(statusGry.level);
-                gamersData.remove(Wyniki.Długosc_Wall_Of_Fame -1);
-                gamersData.add(row, gracz);
+            gracz.setScore(statusGry.score);
+            gracz.setLevel(statusGry.level);
 
-                Gracz[] g=new Gracz[gamersData.size()];
-                for (int i = 0; i < gamersData.size(); i++) {
-                    g[i]=gamersData.get(i);
-                }
-                hiscores.setGraczs(g);
-                hiscores.sortujGraczy();
+            gamersData.add(row, gracz);
+
+            Gracz[] g=new Gracz[gamersData.size()];
+            for (int i = 0; i < gamersData.size(); i++) {
+                g[i]=gamersData.get(i);
             }
+            hiscores.setGraczs(g);
+            hiscores.sortujGraczy();
+
+            continueBtn.setOnAction((ActionEventevent) -> {
+            if (statusGry !=null) {
+
+                gamersData.remove(Wyniki.Długosc_Wall_Of_Fame -1);
+
+            }
+
             hideScoresDialogBox();
             tetris.HandleAction(Akcje.RESET);
             startGame();
