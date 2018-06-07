@@ -45,12 +45,12 @@
       </children>
     </Pane>
     <Pane fx:id="welcomePanel" layoutX="220.0" layoutY="10.0" prefHeight="57.0" prefWidth="111.0" />
-    <Rectangle arcHeight="34.0" arcWidth="31.0" fill="DODGERBLUE" height="86.0" layoutX="217.0" layoutY="147.0" opacity="0.59" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.2" width="114.0">
+    <Rectangle arcHeight="34.0" arcWidth="31.0" fill="#787a7e" height="86.0" layoutX="217.0" layoutY="147.0" opacity="0.59" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.2" width="114.0">
       <effect>
-        <DropShadow color="#cc0000" radius="26.188499813988088" width="53.38095238095237" />
+        <DropShadow color="#cc0000" radius="26.18948800223214" width="53.38095238095237" />
       </effect>
     </Rectangle>
-    <Pane id="nextBoard" fx:id="nextPanel" layoutX="236.0" layoutY="155.0" prefHeight="71.0" prefWidth="80.0">
+    <Pane id="nextBoard" fx:id="nextPanel" layoutX="234.0" layoutY="155.0" prefHeight="71.0" prefWidth="80.0">
       <effect>
         <DropShadow />
       </effect>
