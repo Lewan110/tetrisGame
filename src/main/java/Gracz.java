@@ -1,5 +1,5 @@
 
-public class Gamer implements Comparable{
+public class Gracz implements Comparable{
     String name;
     int score;
     int level;
@@ -7,18 +7,18 @@ public class Gamer implements Comparable{
     
     @Override
     public int compareTo(Object o) {
-        if (o instanceof Gamer ) {
-            return ((Gamer)o).score-this.score;
+        if (o instanceof Gracz) {
+            return ((Gracz)o).score-this.score;
         }
         else return -1;
     }
 
-    public Gamer() {
+    public Gracz() {
     }
    
     
     
-    public Gamer(String name, int score,int level) {
+    public Gracz(String name, int score, int level) {
         this.name = name;
         this.score = score;
         this.level=level;

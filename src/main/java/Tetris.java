@@ -29,7 +29,7 @@ public class Tetris extends Observable {
     private boolean keyTyped;
     private int padding;
     private int totalLines;
-    InputManager inputManager;
+    Input input;
     Observer observer;
     boolean gamePaused;
 
@@ -38,7 +38,7 @@ public class Tetris extends Observable {
         this.cols = cols;
         this.lines = lines;
         this.canvas = canvas;
-        inputManager = new InputManager(this);
+        input = new Input(this);
         resetGame();
         notifyObserver();
     }
@@ -303,19 +303,15 @@ public class Tetris extends Observable {
         }
     }
 
-    public void setPace(double pace) {
-        this.pace = pace;
-    }
-
-    public GameState getCurrentState() {
-        GameState gameState = new GameState();
-        gameState.tetrimino = nextTetrimino;
-        gameState.linesCleared = rowsCleared;
-        gameState.score = (int) score;
-        gameState.level = level;
-        gameState.gameOver = gameOver;
-        gameState.gamePaused = gamePaused;
-        return gameState;
+    public StatusGry getCurrentState() {
+        StatusGry statusGry = new StatusGry();
+        statusGry.tetrimino = nextTetrimino;
+        statusGry.linesCleared = rowsCleared;
+        statusGry.score = (int) score;
+        statusGry.level = level;
+        statusGry.gameOver = gameOver;
+        statusGry.gamePaused = gamePaused;
+        return statusGry;
     }
 
     private void notifyObserver() {
@@ -324,32 +320,11 @@ public class Tetris extends Observable {
         }
     }
 
-    public JavaFxCanvas getJavaFxCanvas() {
-        return canvas;
-    }
-
-    public void setJavaFxCanvas(JavaFxCanvas canvas) {
-        this.canvas = canvas;
-    }
-
-    public double getScore() {
-        return score;
-    }
-
-    public void setScore(double score) {
-        this.score = score;
-    }
-
-    public Observer getObserver() {
-        return observer;
-    }
-
     public void setObserver(Observer observer) {
         this.observer = observer;
     }
 
     class Cell {
-
         boolean empty = true;
         int type = -1;
     }

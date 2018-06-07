@@ -4,39 +4,35 @@ import java.util.prefs.Preferences;
 
 public class HiScores {
 
-    public static final int WALL_OF_FAME_LENGTH=5;
-    private Gamer[] gamers;
+    public static final int Długosc_Wall_Of_Fame =3;      //max długość tablicy najlepszych graczy
+    private Gracz[] graczs;
     
-    Preferences userPreferences = Preferences.userRoot().node("/tetris/root");
+    Preferences userPreferences;
 
     public HiScores() {
-        userPreferences = Preferences.userRoot().node("/tetris/root");
-//        try {
-//            userPreferences.clear();
-//        } catch (BackingStoreException ex) {
-//            Logger.getLogger(HiScores.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        gamers=new Gamer[WALL_OF_FAME_LENGTH];
-        for (int i=0; i<gamers.length;++i) {
-            gamers[i]=new Gamer();
+        userPreferences = Preferences.userRoot().node("/tetris/wyniki");           //tutaj znajdują się wyniki
+
+        graczs =new Gracz[Długosc_Wall_Of_Fame];
+        for (int i = 0; i< graczs.length; ++i) {
+            graczs[i]=new Gracz();
         }
     }
     
-    public Gamer[] getTopGamers(){
-        for (int i = 0; i < WALL_OF_FAME_LENGTH; i++) {
-            gamers[i].setScore( userPreferences.getInt("GAMER_"+(i+1) +"_SCORE", 0));
-            gamers[i].setName( userPreferences.get("GAMER_"+(i+1) +"_NAME", ""));
-            gamers[i].setLevel( userPreferences.getInt("GAMER_"+(i+1) +"_LEVEL", 0));
+    public Gracz[] getTopGamers(){
+        for (int i = 0; i < Długosc_Wall_Of_Fame; i++) {
+            graczs[i].setScore( userPreferences.getInt("GAMER_"+(i+1) +"_SCORE", 0));
+            graczs[i].setName( userPreferences.get("GAMER_"+(i+1) +"_NAME", ""));
+            graczs[i].setLevel( userPreferences.getInt("GAMER_"+(i+1) +"_LEVEL", 0));
         }
         
-        Arrays.sort(gamers);
-        return gamers;
+        Arrays.sort(graczs);
+        return graczs;
     }
     
     public  int findGamerPosition(int score){
-        Gamer[] gamers=getTopGamers();
-        for (int i = 0; i < gamers.length; i++) {
-            if (gamers[i].getScore()<=score) {
+        Gracz[] graczs =getTopGamers();
+        for (int i = 0; i < graczs.length; i++) {
+            if (graczs[i].getScore()<=score) {
                 return i;
             }
         }
@@ -45,52 +41,20 @@ public class HiScores {
     
     
     public void saveTopGamers(){   
-        Arrays.sort(gamers);
-        for (int i = 1; i <= WALL_OF_FAME_LENGTH; i++) {
-            userPreferences.putInt("GAMER_"+i+"_SCORE", gamers[i-1].getScore());
-            userPreferences.put("GAMER_"+i+"_NAME", gamers[i-1].getName());
-            userPreferences.putInt("GAMER_"+i+"_LEVEL", gamers[i-1].getLevel());
+        Arrays.sort(graczs);
+        for (int i = 1; i <= Długosc_Wall_Of_Fame; i++) {
+            userPreferences.putInt("GAMER_"+i+"_SCORE", graczs[i-1].getScore());
+            userPreferences.put("GAMER_"+i+"_NAME", graczs[i-1].getName());
+            userPreferences.putInt("GAMER_"+i+"_LEVEL", graczs[i-1].getLevel());
         }       
    }
-    
-    public int getHiScore(){       
-        Arrays.sort(gamers);
-        return gamers[WALL_OF_FAME_LENGTH-1].getScore();
-    }
-    
-    public boolean isTopScore(int score){
-        getTopGamers();
-          for (int i = 0; i < gamers.length; i++) {
-              if (score>=gamers[i].getScore()) {
-                  return true;
-              }
-        }      
-        return false;
-    } 
-    
-    public void InsertGamer(Gamer gamer){
-      getTopGamers();
-          for (int i = 0; i < gamers.length; i++) {
-              if (gamer.getScore()>=gamers[i].getScore()) {                  
-                  for (int j = i+1; j <gamers.length; j++) {                      
-                    gamers[j].setScore(gamers[j-1].getScore());
-                    gamers[j].setName(gamers[j-1].getName());
-                    gamers[j].setLevel(gamers[j-1].getLevel());
-                  }
-               gamers[i].setName(gamer.getName());
-               gamers[i].setLevel(gamer.getLevel());
-               gamers[i].setScore(gamer.getScore());   
-               return;
-              }              
-        }        
+
+    public Gracz[] getGraczs() {
+        return graczs;
     }
 
-    public Gamer[] getGamers() {
-        return gamers;
-    }
-
-    public void setGamers(Gamer[] gamers) {
-        this.gamers = gamers;
+    public void setGraczs(Gracz[] graczs) {
+        this.graczs = graczs;
     }
     
 }

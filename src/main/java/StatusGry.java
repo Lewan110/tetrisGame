@@ -1,8 +1,8 @@
 
 
-public class GameState {
+public class StatusGry {
 
-    public GameState() {
+    public StatusGry() {
         tetrimino=null;
         score=0;
         level=1;

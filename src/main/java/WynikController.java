@@ -7,14 +7,14 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 
-public class ScoresController implements Initializable {
+public class WynikController implements Initializable {
    
     @FXML
-    private TableColumn<Gamer, String> name;
+    private TableColumn<Gracz, String> name;
     @FXML
-    private TableColumn<Gamer, Integer> score;
+    private TableColumn<Gracz, Integer> score;
     @FXML
-    private TableColumn<Gamer, Integer> level;
+    private TableColumn<Gracz, Integer> level;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

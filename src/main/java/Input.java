@@ -3,10 +3,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 
 
-public class InputManager implements EventHandler<KeyEvent>{
+public class Input implements EventHandler<KeyEvent>{
     private final Tetris tetris;
     
-    public InputManager(Tetris tetris) {
+    public Input(Tetris tetris) {
         this.tetris=tetris;
     }
     

@@ -44,16 +44,16 @@ public class JavaFxCanvas  {
 
 
     public void clearBackground() {
-       GraphicsContext gc = canvas.getGraphicsContext2D();              
-       gc.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+       GraphicsContext backGround = canvas.getGraphicsContext2D();
+       backGround.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
     }
     
     public void drawTetrimino(Tetrimino tetrimino){
-        clearBackground();
-        if (tetrimino!=null) 
+        clearBackground();      //wyczyść
+        if (tetrimino!=null)
         for (int i = 0; i < tetrimino.cells.length; i++) {
             for (int j = 0; j < tetrimino.cells[i].length; j++) {
-                if (tetrimino.cells[i][j]==1) 
+                if (tetrimino.cells[i][j]==1)   //tam gdzie w tablicy tetromino jest 1 to rysuj kwadrat
                 drawCell(j, i, tetrimino.type);
             }            
         }        
