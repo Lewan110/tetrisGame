@@ -302,7 +302,12 @@ public class Tetris extends Observable {
 
         } else if (akcje == Akcje.RESET) {
             resetGame();
+
         }
+    }
+
+    public void setPace(double pace) {
+        this.pace = pace;
     }
 
     public StatusGry getCurrentState() {

@@ -20,9 +20,7 @@ public class TetrisFx extends Application {
             Logger.getLogger(TetrisFx.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
-    
-    
+
     public static void main(String[] args) {
         launch(args);
     }

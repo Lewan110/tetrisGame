@@ -1,4 +1,5 @@
 import javafx.animation.AnimationTimer;
+import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,8 +24,8 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-
 public class FXMLController implements Initializable, Observer {
+
 
     @FXML
     Pane boardPanel;
@@ -44,7 +45,9 @@ public class FXMLController implements Initializable, Observer {
     Label currentScoreLabel;
     @FXML
     Label hiScoreLabel;
-            
+    @FXML
+    Slider paceSlider;
+
     AnimationTimer  animationTimer;   
     Canvas          canvas          = new Canvas(200, 400); // obszar gry
     Canvas          canvas2         = new Canvas(80, 80);   //next panel
@@ -52,9 +55,10 @@ public class FXMLController implements Initializable, Observer {
     Canvas          background      = new Canvas(canvas.getWidth(), canvas.getHeight());    //tło
     Tetris          tetris;
     Image           image           = new Image("tetris-background.png");       //obraz tłą
-    Wyniki hiscores        = new Wyniki();
-    Node          scoresDialogBox;
-    Node          welcomeBox;
+    Wyniki          hiscores        = new Wyniki();
+    Node            scoresDialogBox;
+    Node            welcomeBox;
+
     int gameStarted=0;
     Gracz gracz = new Gracz();
     
@@ -69,6 +73,7 @@ public class FXMLController implements Initializable, Observer {
         boardPanel.getChildren().add(canvas);
         nextPanel.getChildren().add(canvas2);
         boardPanel.setFocusTraversable(true);
+        paceSlider.setFocusTraversable(false);
 
         animationTimer = new AnimationTimer() {
             @Override
@@ -92,6 +97,9 @@ public class FXMLController implements Initializable, Observer {
         }
 
         rysujTlo();
+        paceSlider.setMin(0);
+        paceSlider.setMax(1000);
+        paceSlider.setValue(0);
     }
 
     @FXML
@@ -115,9 +123,11 @@ public class FXMLController implements Initializable, Observer {
                 gameStarted=1;
             }
             if (g.gameOver) {
-                stopGame();              
+                stopGame();
                 updateHallOfFame(g);            
             }
+
+            tetris.setPace(paceSlider.getValue());
             currentScoreLabel.setText("score : " + g.score);
             hiScoreLabel.setText("top " + Math.max(hiscores.getGraczs()[0].getScore(), g.score) );
             levelLabel.setText(Integer.toString(g.level));
@@ -138,7 +148,9 @@ public class FXMLController implements Initializable, Observer {
         final TextField gamerName = (TextField) welcomeBox.lookup("#gamerName");
         Button okBtn= (Button) welcomeBox.lookup("#welcomeSaveBtn");
         Button cancelBtn = (Button) welcomeBox.lookup("#WelcomeCancelBtn");
+
         mainPane.getChildren().add(welcomeBox);
+
         okBtn.setOnAction((ActionEvent event) -> {
             gracz.setName(gamerName.getText());
 
@@ -155,7 +167,7 @@ public class FXMLController implements Initializable, Observer {
         });
 
     }
-    public void showScoresDialog(final StatusGry statusGry, final int row) {
+    public void showScoresDialog(final StatusGry statusGry, final int nrWTabeli) {
         final ObservableList<Gracz> gamersData = FXCollections.observableArrayList();
                 
             //Wypełnij tabele imion najlepszych graczy
@@ -170,7 +182,7 @@ public class FXMLController implements Initializable, Observer {
             gracz.setScore(statusGry.score);
             gracz.setLevel(statusGry.level);
 
-            gamersData.add(row, gracz);
+            gamersData.add(nrWTabeli, gracz);
 
             Gracz[] g=new Gracz[gamersData.size()];
             for (int i = 0; i < gamersData.size(); i++) {
@@ -180,22 +192,17 @@ public class FXMLController implements Initializable, Observer {
             hiscores.sortujGraczy();
 
             continueBtn.setOnAction((ActionEventevent) -> {
-            if (statusGry !=null) {
 
                 gamersData.remove(Wyniki.Długosc_Wall_Of_Fame -1);
 
-            }
-
-            hideScoresDialogBox();
-            tetris.HandleAction(Akcje.RESET);
-            startGame();
+            Platform.exit();
         });
             
     }
 
     private void updateHallOfFame(StatusGry statusGry) {
-        int pos;
-        if ((pos = hiscores.znajdzPozycjeGraczaWTabeli(statusGry.score)) != -1) {
+        int pos = hiscores.znajdzPozycjeGraczaWTabeli(statusGry.score);
+        if (pos != -1) {
             showScoresDialog(statusGry, pos);
         }
     }

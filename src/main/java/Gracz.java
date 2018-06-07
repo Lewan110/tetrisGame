@@ -39,8 +39,7 @@ public class Gracz implements Comparable{
         this.level = level;
     }
 
-    
-    
+
     
     
 }

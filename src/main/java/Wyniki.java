@@ -10,7 +10,7 @@ public class Wyniki {
     Preferences userPreferences;
 
     public Wyniki() {
-        userPreferences = Preferences.userRoot().node("/tetris/wyniki");           //tutaj znajdują się wyniki
+        userPreferences = Preferences.userRoot().node("/tetris/asd2");           //tutaj znajdują się wyniki
 
         graczs =new Gracz[Długosc_Wall_Of_Fame];
         for (int i = 0; i< graczs.length; ++i) {
