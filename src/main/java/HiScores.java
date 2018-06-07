@@ -30,7 +30,7 @@ public class HiScores {
     }
     
     public  int findGamerPosition(int score){
-        Gracz[] graczs =getTopGamers();
+        Gracz[] graczs = getTopGamers();
         for (int i = 0; i < graczs.length; i++) {
             if (graczs[i].getScore()<=score) {
                 return i;

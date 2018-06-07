@@ -13,16 +13,7 @@ public class Gracz implements Comparable{
         else return -1;
     }
 
-    public Gracz() {
-    }
-   
-    
-    
-    public Gracz(String name, int score, int level) {
-        this.name = name;
-        this.score = score;
-        this.level=level;
-    }
+    public Gracz() {}
 
     public String getName() {
         return name;

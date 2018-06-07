@@ -74,15 +74,17 @@ public class FXMLController implements Initializable, Observer {
             @Override
             public void handle(long now) {
                 tetris.enterGameLoop(now);
-
             }
         };
+
         hiscores.getTopGamers();
+
         try {
-            welcomeBox = FXMLLoader.load(FXMLController.class.getResource("welcome.fxml")); //ładowanie okna ,,powitalnego"
+            welcomeBox = FXMLLoader.load(FXMLController.class.getResource("welcome.fxml"));     //ładowanie okna ,,powitalnego"
         } catch (IOException ex) {
             Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         try {
             scoresDialogBox = FXMLLoader.load(FXMLController.class.getResource("scores.fxml")); //Ładowanie okna wyników po zakończeniu gry
         } catch (IOException ex) {
