@@ -23,9 +23,9 @@ public class Tetrimino implements Cloneable{
         {0, 1, 1},
         {1, 1, 0},};
     public static final byte[][] TetriminoT = {
-        {0, 0, 0},
+        {1, 1, 1},
         {0, 1, 0},
-        {1, 1, 1},};
+        {0, 0, 0},};
     public static final byte[][] TetriminoZ = {
         {0, 0, 0},
         {1, 1, 0},
@@ -42,7 +42,7 @@ public class Tetrimino implements Cloneable{
     private Tetrimino(Tetrimino tetrimino) {
         this.cells = new byte[tetrimino.cells.length][tetrimino.cells[0].length];
         for (int i = 0; i < tetrimino.cells.length; i++) {
-            System.arraycopy(tetrimino.cells[i], 0, this.cells[i], 0, tetrimino.cells[0].length);
+            System.arraycopy(tetrimino.cells[i], 0, this.cells[i], 0, tetrimino.cells[0].length);   //kopiowanie tablicy klocka
             
         }
         this.type = tetrimino.type;
@@ -51,9 +51,10 @@ public class Tetrimino implements Cloneable{
     public Tetrimino rotateClockWise() {
         int n = this.cells.length;
         byte tmp;
-        for (int i = 0; i < n / 2; i++) {
+
+        for (int i = 0; i < n; i++) {               //n - długość tablicy klocka
             for (int j = i; j < n - i - 1; j++) {
-                tmp = cells[i][j];
+                tmp = cells[i][j];                                  //zapisanie obracanego klocka
                 cells[i][j] = cells[j][n - i - 1];
                 cells[j][n - i - 1] = cells[n - i - 1][n - j - 1];
                 cells[n - i - 1][n - j - 1] = cells[n - j - 1][i];

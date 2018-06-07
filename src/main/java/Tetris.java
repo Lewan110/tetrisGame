@@ -11,19 +11,19 @@ public class Tetris extends Observable {
     private static final int SCORE_ONE_ROW_CLEARED = 100;
     private static final int TETRIS = 800;
     private static final int NB_ROWS_PER_LEVEL = 10;
-    private int cols;
-    private int lines;
+    private int kolumny;
+    private int linie;
     double score = 0;
-    private int rowsCleared;
-    private int level;
+    private int linieUsuniete;
+    private int poziom;
     private double pace=0;
     private Cell[][] field;
-    private Tetrimino curTetrimino;
-    private Tetrimino nextTetrimino;
-    private Position curPos;
+    private Tetrimino aktualneTetromino;
+    private Tetrimino nastepneTetromino;
+    private Pozycja aktualnaPozycja;
     private JavaFxCanvas canvas;
-    private Boolean gameOver;
-    private Position initialPosition = new Position(5, 0);
+    private Boolean koniecGry;
+    private Pozycja initialPozycja = new Pozycja(5, 0);
     long startTime = 0;
     public long displayTimePerFrameMillis = 500;
     private boolean keyTyped;
@@ -34,9 +34,9 @@ public class Tetris extends Observable {
     boolean gamePaused;
 
     
-    public Tetris(int cols, int lines, JavaFxCanvas canvas) throws IOException {
-        this.cols = cols;
-        this.lines = lines;
+    public Tetris(int kolumny, int linie, JavaFxCanvas canvas) throws IOException {
+        this.kolumny = kolumny;
+        this.linie = linie;
         this.canvas = canvas;
         input = new Input(this);
         resetGame();
@@ -46,34 +46,34 @@ public class Tetris extends Observable {
     private void resetGame() {
 
         gamePaused = false;
-        gameOver = false;
-        field = new Cell[lines][cols];
-        for (int i = 0; i < lines; i++) {
-            for (int j = 0; j < cols; j++) {
+        koniecGry = false;
+        field = new Cell[linie][kolumny];
+        for (int i = 0; i < linie; i++) {
+            for (int j = 0; j < kolumny; j++) {
                 field[i][j] = new Cell();
             }
         }
         score = 0;
-        rowsCleared = 0;
-        level = 1;
-        canvas.init(cols, lines);
+        linieUsuniete = 0;
+        poziom = 1;
+        canvas.init(kolumny, linie);
         totalLines = 0;
-        AddNewTetriminos();
+        DodajNoweTetromino();
     }
 
-    public void AddNewTetriminos() {
-        curPos = new Position(initialPosition.x, initialPosition.y);
-        if (nextTetrimino != null) {
-            curTetrimino = nextTetrimino;
+    public void DodajNoweTetromino() {
+        aktualnaPozycja = new Pozycja(initialPozycja.x, initialPozycja.y);
+        if (nastepneTetromino != null) {
+            aktualneTetromino = nastepneTetromino;
         } else {
-            curTetrimino = Tetriminos.types[(int) Math.round(Math.random() * (Tetriminos.types.length - 1))];
+            aktualneTetromino = Tetriminos.types[(int) Math.round(Math.random() * (Tetriminos.types.length - 1))];
 
         }
-        nextTetrimino = Tetriminos.types[(int) Math.round(Math.random() * (Tetriminos.types.length - 1))];
+        nastepneTetromino = Tetriminos.types[(int) Math.round(Math.random() * (Tetriminos.types.length - 1))];
         notifyObserver();
     }
 
-    public void drawTheField() {
+    public void rysujPole() {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
                 if (!field[i][j].empty) {
@@ -84,7 +84,7 @@ public class Tetris extends Observable {
 
     }
 
-    private boolean isRowFull(int row) {
+    private boolean pelnaLinia(int row) {
         for (int i = 0; i < field[row].length; i++) {
             if (field[row][i].empty == true) {
                 return false;
@@ -93,19 +93,19 @@ public class Tetris extends Observable {
         return true;
     }
 
-    public void drawcurrentTetrimino() {
-        int nbBlankLines = nbBlankLines(curTetrimino);
-        int nbBlankCols = nbBlankCols(curTetrimino);
-        for (int i = nbBlankLines; i < curTetrimino.cells.length; i++) {
-            for (int j = 0; j < curTetrimino.cells[i].length; j++) {
-                if (curTetrimino.cells[i][j] == 1) {
-                    canvas.drawCell(j + curPos.x - nbBlankCols, i + curPos.y - nbBlankLines, curTetrimino.type);
+    public void rysujAktualneTetro() {
+        int nbBlankLines = nbBlankLines(aktualneTetromino);
+        int nbBlankCols = nbBlankCols(aktualneTetromino);
+        for (int i = nbBlankLines; i < aktualneTetromino.cells.length; i++) {
+            for (int j = 0; j < aktualneTetromino.cells[i].length; j++) {
+                if (aktualneTetromino.cells[i][j] == 1) {
+                    canvas.drawCell(j + aktualnaPozycja.x - nbBlankCols, i + aktualnaPozycja.y - nbBlankLines, aktualneTetromino.type);
                 }
             }
         }
     }
 
-    public void fixTetrimino(Tetrimino tetrimino, Position pos) {
+    public void fixTetrimino(Tetrimino tetrimino, Pozycja pos) {
         int nbBlankLines = nbBlankLines(tetrimino);
         int nbBlankCols = nbBlankCols(tetrimino);
         for (int i = nbBlankLines; i < tetrimino.cells.length; i++) {
@@ -162,7 +162,7 @@ public class Tetris extends Observable {
         return nbBlanckCols;
     }
 
-    public boolean isPossibleToDrawTetriminoAt(Tetrimino tetrimino, Position pos) {
+    public boolean jezeliTetrominoMozliweDoWyrysowania(Tetrimino tetrimino, Pozycja pos) {
         int nbBlankLines = nbBlankLines(tetrimino);
         int nbBlankCols = nbBlankCols(tetrimino);
         for (int i = nbBlankLines; i < tetrimino.cells.length; i++) {
@@ -172,11 +172,11 @@ public class Tetris extends Observable {
                     return false;
                 }
 
-                if (tetrimino.cells[i][j] == 1 && lines <= pos.y + i - nbBlankLines) {
+                if (tetrimino.cells[i][j] == 1 && linie <= pos.y + i - nbBlankLines) {
                     return false;
                 }
 
-                if (tetrimino.cells[i][j] == 1 && cols <= pos.x + j - nbBlankCols) {
+                if (tetrimino.cells[i][j] == 1 && kolumny <= pos.x + j - nbBlankCols) {
                     return false;
                 }
 
@@ -192,7 +192,7 @@ public class Tetris extends Observable {
     public void clearFullLines() {
         List<Integer> lines = new ArrayList();
         for (int i = field.length - 1; i >= 0; i--) {
-            if (isRowFull(i)) {
+            if (pelnaLinia(i)) {
                 lines.add(0, i);
             }
         }
@@ -201,7 +201,7 @@ public class Tetris extends Observable {
             updateScore(lines.size());
             totalLines += lines.size();
             updateLevel();
-            rowsCleared += lines.size();
+            linieUsuniete += lines.size();
         }
 
 
@@ -225,12 +225,12 @@ public class Tetris extends Observable {
     }
 
     public void updateLevel() {
-        level = totalLines / NB_ROWS_PER_LEVEL + 1;
+        poziom = totalLines / NB_ROWS_PER_LEVEL + 1;
         notifyObserver();
     }
 
     public Long getGameSpeed() {
-        return ((displayTimePerFrameMillis - (level * 50)-(long)pace) * 1000000);
+        return ((displayTimePerFrameMillis - (poziom * 50)-(long)pace) * 1000000);
     }
 
     public void enterGameLoop(long now) {
@@ -238,26 +238,28 @@ public class Tetris extends Observable {
             startTime = now;
         }
         notifyObserver();
+
         long elapsed = now - startTime;
+
         if (!gamePaused && (elapsed > getGameSpeed() || keyTyped)) {
             canvas.clearBackground();
-            drawTheField();
+            rysujPole();
 
-            if (!isPossibleToDrawTetriminoAt(nextTetrimino, initialPosition)) {
-                gameOver = true;
-            } else if (isPossibleToDrawTetriminoAt(curTetrimino, new Position(curPos.x + padding, curPos.y + 1))) {
-                curPos.x = curPos.x + padding;
-                curPos.y = curPos.y + 1;
-                drawcurrentTetrimino();
-            } else if (isPossibleToDrawTetriminoAt(curTetrimino, new Position(curPos.x, curPos.y + 1))) {
-                curPos.y = curPos.y + 1;
-                drawcurrentTetrimino();
+            if (!jezeliTetrominoMozliweDoWyrysowania(nastepneTetromino, initialPozycja)) {
+                koniecGry = true;
+            } else if (jezeliTetrominoMozliweDoWyrysowania(aktualneTetromino, new Pozycja(aktualnaPozycja.x + padding, aktualnaPozycja.y + 1))) {
+                aktualnaPozycja.x = aktualnaPozycja.x + padding;
+                aktualnaPozycja.y = aktualnaPozycja.y + 1;
+                rysujAktualneTetro();
+            } else if (jezeliTetrominoMozliweDoWyrysowania(aktualneTetromino, new Pozycja(aktualnaPozycja.x, aktualnaPozycja.y + 1))) {
+                aktualnaPozycja.y = aktualnaPozycja.y + 1;
+                rysujAktualneTetro();
             } else {
-                fixTetrimino(curTetrimino, curPos);
+                fixTetrimino(aktualneTetromino, aktualnaPozycja);
                 clearFullLines();
                 canvas.clearBackground();
-                drawTheField();
-                AddNewTetriminos();
+                rysujPole();
+                DodajNoweTetromino();
             }
 
             if (padding != 0) {
@@ -268,7 +270,7 @@ public class Tetris extends Observable {
                 keyTyped = false;
             }
 
-            if (gameOver) {
+            if (koniecGry) {
                 notifyObserver();
             }
             startTime = 0;
@@ -283,16 +285,16 @@ public class Tetris extends Observable {
         } else if (akcje == Akcje.GO_RIGHT) {
             padding = 1;
         } else if (akcje == Akcje.ROTATE) {
-            Tetrimino t = curTetrimino.clone();
-            if (isPossibleToDrawTetriminoAt(t.rotateClockWise(),
-                    new Position(curPos.x, curPos.y))) {
-                curTetrimino.rotateClockWise();
+            Tetrimino t = aktualneTetromino.clone();
+            if (jezeliTetrominoMozliweDoWyrysowania(t.rotateClockWise(),
+                    new Pozycja(aktualnaPozycja.x, aktualnaPozycja.y))) {
+                aktualneTetromino.rotateClockWise();
             }
 
         } else if (akcje == Akcje.GO_DOWN) {
-            while (isPossibleToDrawTetriminoAt(curTetrimino,
-                    new Position(curPos.x, curPos.y + 1))) {
-                curPos.y = curPos.y + 1;
+            while (jezeliTetrominoMozliweDoWyrysowania(aktualneTetromino,
+                    new Pozycja(aktualnaPozycja.x, aktualnaPozycja.y + 1))) {
+                aktualnaPozycja.y = aktualnaPozycja.y + 1;
             }
         } else if (akcje == Akcje.PAUSE) {
             gamePaused = !gamePaused;
@@ -305,11 +307,11 @@ public class Tetris extends Observable {
 
     public StatusGry getCurrentState() {
         StatusGry statusGry = new StatusGry();
-        statusGry.tetrimino = nextTetrimino;
-        statusGry.linesCleared = rowsCleared;
+        statusGry.tetrimino = nastepneTetromino;
+        statusGry.linesCleared = linieUsuniete;
         statusGry.score = (int) score;
-        statusGry.level = level;
-        statusGry.gameOver = gameOver;
+        statusGry.level = poziom;
+        statusGry.gameOver = koniecGry;
         statusGry.gamePaused = gamePaused;
         return statusGry;
     }

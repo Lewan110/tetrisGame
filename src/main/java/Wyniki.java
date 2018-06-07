@@ -2,14 +2,14 @@ import java.util.Arrays;
 import java.util.prefs.Preferences;
 
 
-public class HiScores {
+public class Wyniki {
 
-    public static final int Długosc_Wall_Of_Fame =3;      //max długość tablicy najlepszych graczy
+    public static final int Długosc_Wall_Of_Fame = 7;      //max długość tablicy najlepszych graczy
     private Gracz[] graczs;
     
     Preferences userPreferences;
 
-    public HiScores() {
+    public Wyniki() {
         userPreferences = Preferences.userRoot().node("/tetris/wyniki");           //tutaj znajdują się wyniki
 
         graczs =new Gracz[Długosc_Wall_Of_Fame];
@@ -29,7 +29,7 @@ public class HiScores {
         return graczs;
     }
     
-    public  int findGamerPosition(int score){
+    public  int znajdzPozycjeGraczaWTabeli(int score){
         Gracz[] graczs = getTopGamers();
         for (int i = 0; i < graczs.length; i++) {
             if (graczs[i].getScore()<=score) {
@@ -40,7 +40,7 @@ public class HiScores {
     }
     
     
-    public void saveTopGamers(){   
+    public void sortujGraczy(){
         Arrays.sort(graczs);
         for (int i = 1; i <= Długosc_Wall_Of_Fame; i++) {
             userPreferences.putInt("GAMER_"+i+"_SCORE", graczs[i-1].getScore());

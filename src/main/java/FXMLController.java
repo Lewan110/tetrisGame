@@ -52,7 +52,7 @@ public class FXMLController implements Initializable, Observer {
     Canvas          background      = new Canvas(canvas.getWidth(), canvas.getHeight());    //tło
     Tetris          tetris;
     Image           image           = new Image("tetris-background.png");       //obraz tłą
-    HiScores        hiscores        = new HiScores();
+    Wyniki hiscores        = new Wyniki();
     Node          scoresDialogBox;
     Node          welcomeBox;
     int gameStarted=0;
@@ -67,9 +67,9 @@ public class FXMLController implements Initializable, Observer {
         canvasFX.init(4, 4);        
         boardPanel.getChildren().add(background);
         boardPanel.getChildren().add(canvas);
-        nextPanel.getChildren().add(canvas2);      
-        scorePanel.setFocusTraversable(true);
-        welcomePanel.setFocusTraversable(true);
+        nextPanel.getChildren().add(canvas2);
+        boardPanel.setFocusTraversable(true);
+
         animationTimer = new AnimationTimer() {
             @Override
             public void handle(long now) {
@@ -174,7 +174,7 @@ public class FXMLController implements Initializable, Observer {
             if (statusGry !=null) {
                 gracz.setScore(statusGry.score);
                 gracz.setLevel(statusGry.level);
-                gamersData.remove(HiScores.Długosc_Wall_Of_Fame -1);
+                gamersData.remove(Wyniki.Długosc_Wall_Of_Fame -1);
                 gamersData.add(row, gracz);
 
                 Gracz[] g=new Gracz[gamersData.size()];
@@ -182,7 +182,7 @@ public class FXMLController implements Initializable, Observer {
                     g[i]=gamersData.get(i);
                 }
                 hiscores.setGraczs(g);
-                hiscores.saveTopGamers();
+                hiscores.sortujGraczy();
             }
             hideScoresDialogBox();
             tetris.HandleAction(Akcje.RESET);
@@ -193,7 +193,7 @@ public class FXMLController implements Initializable, Observer {
 
     private void updateHallOfFame(StatusGry statusGry) {
         int pos;
-        if ((pos = hiscores.findGamerPosition(statusGry.score)) != -1) {
+        if ((pos = hiscores.znajdzPozycjeGraczaWTabeli(statusGry.score)) != -1) {
             showScoresDialog(statusGry, pos);
         }
     }

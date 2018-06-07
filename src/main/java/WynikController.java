@@ -10,21 +10,21 @@ import java.util.ResourceBundle;
 public class WynikController implements Initializable {
    
     @FXML
-    private TableColumn<Gracz, String> name;
+    private TableColumn<Gracz, String> Nick;
     @FXML
-    private TableColumn<Gracz, Integer> score;
+    private TableColumn<Gracz, Integer> Wynik;
     @FXML
-    private TableColumn<Gracz, Integer> level;
+    private TableColumn<Gracz, Integer> Poziom;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-    name.setCellValueFactory(
+    Nick.setCellValueFactory(
                 new PropertyValueFactory<>("name"));
 
-    score.setCellValueFactory(
+    Wynik.setCellValueFactory(
                 new PropertyValueFactory<>("score"));
 
-    level.setCellValueFactory(
+    Poziom.setCellValueFactory(
                 new PropertyValueFactory<>("level"));
    
     }

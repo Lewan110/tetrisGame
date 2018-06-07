@@ -3,7 +3,7 @@ import javafx.fxml.Initializable;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class WelcomeController implements Initializable {
+public class PowitalnyController implements Initializable {
 
 
     @Override
