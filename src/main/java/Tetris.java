@@ -21,7 +21,7 @@ public class Tetris extends Observable {
     private Tetrimino aktualneTetromino;
     private Tetrimino nastepneTetromino;
     private Pozycja aktualnaPozycja;
-    private JavaFxCanvas canvas;
+    private MainCanvas canvas;
     private Boolean koniecGry;
     private Pozycja initialPozycja = new Pozycja(5, 0);
     long startTime = 0;
@@ -34,7 +34,7 @@ public class Tetris extends Observable {
     boolean gamePaused;
 
     
-    public Tetris(int kolumny, int linie, JavaFxCanvas canvas) throws IOException {
+    public Tetris(int kolumny, int linie, MainCanvas canvas) throws IOException {
         this.kolumny = kolumny;
         this.linie = linie;
         this.canvas = canvas;

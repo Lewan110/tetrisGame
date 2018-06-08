@@ -14,7 +14,7 @@
   <children>
     <ImageView fitHeight="421.0" fitWidth="338.0" pickOnBounds="true" smooth="false">
       <image>
-        <Image url="@main.jpg" />
+        <Image url="@img/main.jpg" />
       </image>
     </ImageView>
     <Pane id="Boardpanel" fx:id="boardPanel" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="198.0">
@@ -35,9 +35,9 @@
           </font>
         </Label>
         <Label fx:id="currentScoreLabel" font="$x3" layoutX="14.0" layoutY="29.0" textFill="WHITE" />
+            <Label layoutX="8.0" layoutY="6.0" text="Label" />
       </children>
     </Pane>
-    <Pane fx:id="welcomePanel" layoutX="220.0" layoutY="0.0" prefHeight="57.0" prefWidth="111.0" />
     <Rectangle arcHeight="34.0" arcWidth="31.0" fill="#787a7e" height="86.0" layoutX="217.0" layoutY="147.0" opacity="0.59" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.2" width="114.0">
       <effect>
         <DropShadow color="#cc0000" radius="26.189982096354164" width="53.38095238095237" />
@@ -56,7 +56,7 @@
     <Label fx:id="levelLabel" font="$x1" layoutX="281.0" layoutY="105.0" textFill="WHITE" />
     <ImageView fx:id="pausedImage" fitHeight="24.0" fitWidth="100.0" layoutX="221.0" layoutY="247.0" pickOnBounds="true" visible="false">
       <image>
-        <Image url="@pause.png" />
+        <Image url="@img/pause.png" />
       </image>
     </ImageView>
       <Slider fx:id="paceSlider" layoutX="227.0" layoutY="246.0" prefHeight="18.0" prefWidth="100.0" />

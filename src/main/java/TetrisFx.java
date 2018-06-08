@@ -11,11 +11,11 @@ import java.util.logging.Logger;
 
 public class TetrisFx extends Application {
 
-    FXMLController controller ;
+    MainController controller ;
 
     public TetrisFx()  {
         try {
-            controller = new FXMLController();
+            controller = new MainController();
         } catch (IOException ex) {
             Logger.getLogger(TetrisFx.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -30,7 +30,7 @@ public class TetrisFx extends Application {
         Parent root;
         Scene scene;
         
-        FXMLLoader loader = new FXMLLoader(TetrisFx.class.getResource("MainForm.fxml"));
+        FXMLLoader loader = new FXMLLoader(TetrisFx.class.getResource("glowny.fxml"));
         controller.getTetris().setObserver(controller);
         loader.setController(controller);
         controller.getTetris().addObserver(controller);
@@ -44,7 +44,7 @@ public class TetrisFx extends Application {
         primaryStage.show();
         
         primaryStage.setTitle("TETRIS");
-        controller.startGame();
+        controller.animationTimer.start();
         
     }
    

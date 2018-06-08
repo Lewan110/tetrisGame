@@ -24,7 +24,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class FXMLController implements Initializable, Observer {
+public class MainController implements Initializable, Observer {
 
 
     @FXML
@@ -51,10 +51,10 @@ public class FXMLController implements Initializable, Observer {
     AnimationTimer  animationTimer;   
     Canvas          canvas          = new Canvas(200, 400); // obszar gry
     Canvas          canvas2         = new Canvas(80, 80);   //next panel
-    JavaFxCanvas    canvasFX        = new JavaFxCanvas(canvas2);
+    MainCanvas canvasFX        = new MainCanvas(canvas2);
     Canvas          background      = new Canvas(canvas.getWidth(), canvas.getHeight());    //tło
     Tetris          tetris;
-    Image           image           = new Image("tetris-background.png");       //obraz tłą
+    Image           image           = new Image("img/tetris-background.png");       //obraz tłą
     Wyniki          hiscores        = new Wyniki();
     Node            scoresDialogBox;
     Node            welcomeBox;
@@ -62,8 +62,8 @@ public class FXMLController implements Initializable, Observer {
     int gameStarted=0;
     Gracz gracz = new Gracz();
     
-    public FXMLController() throws IOException {
-        tetris = new Tetris(10, 20, new JavaFxCanvas(canvas));
+    public MainController() throws IOException {
+        tetris = new Tetris(10, 20, new MainCanvas(canvas));
     }
 
     @Override
@@ -85,26 +85,21 @@ public class FXMLController implements Initializable, Observer {
         hiscores.getTopGamers();
 
         try {
-            welcomeBox = FXMLLoader.load(FXMLController.class.getResource("welcome.fxml"));     //ładowanie okna ,,powitalnego"
+            welcomeBox = FXMLLoader.load(MainController.class.getResource("welcome.fxml"));     //ładowanie okna ,,powitalnego"
         } catch (IOException ex) {
-            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
-            scoresDialogBox = FXMLLoader.load(FXMLController.class.getResource("scores.fxml")); //Ładowanie okna wyników po zakończeniu gry
+            scoresDialogBox = FXMLLoader.load(MainController.class.getResource("wyniki.fxml")); //Ładowanie okna wyników po zakończeniu gry
         } catch (IOException ex) {
-            Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         rysujTlo();
         paceSlider.setMin(0);
         paceSlider.setMax(1000);
         paceSlider.setValue(0);
-    }
-
-    @FXML
-    private void HandleKeyAction(KeyEvent e) {
-        tetris.input.handle(e);
     }
 
     private void rysujTlo() {
@@ -118,12 +113,12 @@ public class FXMLController implements Initializable, Observer {
         if (o instanceof Tetris) {
             StatusGry g = ((Tetris) o).getCurrentState();
             if(gameStarted==0){
-                stopGame();
+                animationTimer.stop();
                 showWelcome();
                 gameStarted=1;
             }
             if (g.gameOver) {
-                stopGame();
+                animationTimer.stop();
                 updateHallOfFame(g);            
             }
 
@@ -134,14 +129,6 @@ public class FXMLController implements Initializable, Observer {
             pausedImage.setVisible(g.gamePaused);
             canvasFX.drawTetrimino(g.tetrimino);
         } 
-    }
-   
-    public void startGame() {
-        animationTimer.start();
-    }
-
-    public void stopGame() {
-        animationTimer.stop();
     }
 
     public void showWelcome(){
@@ -156,14 +143,14 @@ public class FXMLController implements Initializable, Observer {
 
             hideWelcomeBox();
             tetris.HandleAction(Akcje.RESET);
-            startGame();
+            animationTimer.start();
         });
 
         cancelBtn.setOnAction((ActionEvent event) -> {
             gracz.setName("no name");
             hideWelcomeBox();
             tetris.HandleAction(Akcje.RESET);
-            startGame();
+            animationTimer.start();
         });
 
     }

@@ -4,7 +4,8 @@ public class Gracz implements Comparable{
     int score;
     int level;
 
-    
+
+
     @Override
     public int compareTo(Object o) {
         if (o instanceof Gracz) {
@@ -14,6 +15,12 @@ public class Gracz implements Comparable{
     }
 
     public Gracz() {}
+
+    public Gracz(String name, int score, int level) {
+        this.name = name;
+        this.score = score;
+        this.level = level;
+    }
 
     public String getName() {
         return name;

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+import java.util.Objects;
 
 public class Tetrimino implements Cloneable{
 
@@ -70,4 +72,33 @@ public class Tetrimino implements Cloneable{
        Tetrimino t=new Tetrimino(this);
         return t;      
    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (this.type == ((Tetrimino) o).type) {
+            if (this.cells == null) {
+                return (((Tetrimino) o).cells == null);
+            }
+            if (((Tetrimino) o).cells == null) {
+                return false;
+            }
+            if (this.cells.length != ((Tetrimino) o).cells.length) {
+                return false;
+            }
+
+            for (int i = 0; i < this.cells.length; i++) {
+                if (!Arrays.equals(this.cells[i], ((Tetrimino) o).cells[i])) {
+                    return false;
+                }
+            }
+
+        }
+        return true;
+    }
+
+
+
 }
+
