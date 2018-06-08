@@ -7,7 +7,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane id="AnchorPane" fx:id="mainPane" minHeight="421.0" onKeyPressed="#HandleKeyAction" prefHeight="421.0" prefWidth="338.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
@@ -17,48 +16,63 @@
         <Image url="@img/main.jpg" />
       </image>
     </ImageView>
-    <Pane id="Boardpanel" fx:id="boardPanel" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="198.0">
-      <children>
-        <Label layoutX="211.0" layoutY="349.0" text="F2   : new game" textFill="WHITE">
-          <font>
-            <Font name="System Bold" size="14.0" fx:id="x2" />
-          </font>
-        </Label>
-        <Label font="$x2" layoutX="211.0" layoutY="368.0" text="ctrl : pause" textFill="WHITE" />
-      </children>
-    </Pane>
+    <Pane id="Boardpanel" fx:id="boardPanel" layoutX="10.0" layoutY="10.0" prefHeight="400.0" prefWidth="198.0" />
     <Pane fx:id="scorePanel" layoutX="220.0" layoutY="10.0" prefHeight="57.0" prefWidth="111.0">
       <children>
-        <Label fx:id="hiScoreLabel" layoutX="14.0" layoutY="6.0" textFill="WHITE">
+        <Label layoutX="10.0" layoutY="6.0" text="name: " textFill="WHITE">
           <font>
-            <Font name="System Bold" size="12.0" fx:id="x3" />
+            <Font name="System Bold" size="12.0" />
           </font>
         </Label>
-        <Label fx:id="currentScoreLabel" font="$x3" layoutX="14.0" layoutY="29.0" textFill="WHITE" />
-            <Label layoutX="8.0" layoutY="6.0" text="Label" />
+
+        <Label fx:id="name" layoutX="50.0" layoutY="6.0" textFill="RED">
+          <font>
+            <Font name="System Bold" size="14.0" />
+          </font>
+        </Label>
+        <Label fx:id="currentScoreLabel" layoutX="14.0" layoutY="29.0" textFill="WHITE">
+        <font>
+          <Font name="System Bold" size="12.0" />
+        </font>
+        </Label>
       </children>
     </Pane>
-    <Rectangle arcHeight="34.0" arcWidth="31.0" fill="#787a7e" height="86.0" layoutX="217.0" layoutY="147.0" opacity="0.59" stroke="WHITE" strokeType="INSIDE" strokeWidth="3.2" width="114.0">
-      <effect>
-        <DropShadow color="#cc0000" radius="26.189982096354164" width="53.38095238095237" />
-      </effect>
-    </Rectangle>
     <Pane id="nextBoard" fx:id="nextPanel" layoutX="234.0" layoutY="155.0" prefHeight="71.0" prefWidth="80.0">
       <effect>
         <DropShadow />
       </effect>
     </Pane>
-    <Label layoutX="221.0" layoutY="105.0" text="Level" textFill="WHITE">
+    <Label layoutX="221.0" layoutY="80.0" text="Level" textFill="WHITE">
       <font>
-        <Font name="System Bold" size="18.0" fx:id="x1" />
+        <Font name="System Bold" size="18.0" />
       </font>
     </Label>
-    <Label fx:id="levelLabel" font="$x1" layoutX="281.0" layoutY="105.0" textFill="WHITE" />
+
+    <Label fx:id="levelLabel" layoutX="281.0" layoutY="80.0" textFill="WHITE">
+    <font>
+      <Font name="System Bold" size="18.0" />
+    </font>
+    </Label>
     <ImageView fx:id="pausedImage" fitHeight="24.0" fitWidth="100.0" layoutX="221.0" layoutY="247.0" pickOnBounds="true" visible="false">
       <image>
         <Image url="@img/pause.png" />
       </image>
     </ImageView>
       <Slider fx:id="paceSlider" layoutX="227.0" layoutY="246.0" prefHeight="18.0" prefWidth="100.0" />
+  <Label layoutX="238.0" layoutY="316.0" text="R - RESET" textFill="WHITE">
+    <font>
+      <Font name="System Bold" size="14.0" />
+    </font>
+  </Label>
+  <Label layoutX="238.0" layoutY="336.0" text="P - PAUZA" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="215.0" layoutY="130.0" text="NEXT TETROMINO:" textFill="WHITE">
+    <font>
+      <Font name="System Bold" size="13.0" />
+    </font>
+    </Label>
   </children>
 </AnchorPane>

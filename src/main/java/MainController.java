@@ -47,6 +47,8 @@ public class MainController implements Initializable, Observer {
     Label hiScoreLabel;
     @FXML
     Slider paceSlider;
+    @FXML
+    Label name;
 
     AnimationTimer  animationTimer;   
     Canvas          canvas          = new Canvas(200, 400); // obszar gry
@@ -102,6 +104,11 @@ public class MainController implements Initializable, Observer {
         paceSlider.setValue(0);
     }
 
+    @FXML
+    private void HandleKeyAction(KeyEvent e) {
+        tetris.input.handle(e);
+    }
+
     private void rysujTlo() {
         GraphicsContext gc = background.getGraphicsContext2D();
         gc.drawImage(image, 0, 0, background.getWidth(), background.getHeight());
@@ -124,9 +131,9 @@ public class MainController implements Initializable, Observer {
 
             tetris.setPace(paceSlider.getValue());
             currentScoreLabel.setText("score : " + g.score);
-            hiScoreLabel.setText("top " + Math.max(hiscores.getGraczs()[0].getScore(), g.score) );
             levelLabel.setText(Integer.toString(g.level));
             pausedImage.setVisible(g.gamePaused);
+            name.setText(gracz.getName());
             canvasFX.drawTetrimino(g.tetrimino);
         } 
     }
@@ -140,6 +147,9 @@ public class MainController implements Initializable, Observer {
 
         okBtn.setOnAction((ActionEvent event) -> {
             gracz.setName(gamerName.getText());
+            if(gamerName.getText().length()<1){
+                gracz.setName("no name");
+            }
 
             hideWelcomeBox();
             tetris.HandleAction(Akcje.RESET);
@@ -159,7 +169,8 @@ public class MainController implements Initializable, Observer {
                 
             //Wypełnij tabele imion najlepszych graczy
             final TableView scoresTable = (TableView) scoresDialogBox.lookup("#scoresTable");
-            Button continueBtn = (Button) scoresDialogBox.lookup("#continue");
+            Button endBtn = (Button) scoresDialogBox.lookup("#end");
+            Button tryAgainBtn = (Button) scoresDialogBox.lookup("#try_again");
 
             Gracz[] t = hiscores.getGraczs();
             gamersData.addAll(t);
@@ -178,11 +189,18 @@ public class MainController implements Initializable, Observer {
             hiscores.setGraczs(g);
             hiscores.sortujGraczy();
 
-            continueBtn.setOnAction((ActionEventevent) -> {
+            endBtn.setOnAction((ActionEventevent) -> {
 
                 gamersData.remove(Wyniki.Długosc_Wall_Of_Fame -1);
 
             Platform.exit();
+        });
+        tryAgainBtn.setOnAction((ActionEventevent) -> {
+
+            gamersData.remove(Wyniki.Długosc_Wall_Of_Fame -1);
+            hideScoresDialogBox();
+            tetris.HandleAction(Akcje.RESET);
+            animationTimer.start();
         });
             
     }

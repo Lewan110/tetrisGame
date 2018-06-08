@@ -22,10 +22,10 @@ public class Input implements EventHandler<KeyEvent>{
         } else if (t.getCode() == KeyCode.DOWN) {
             return Akcje.GO_DOWN;
         }
-        else if (t.getCode() == KeyCode.CONTROL) {
+        else if (t.getCode() == KeyCode.P) {
             return Akcje.PAUSE;
         }
-        else if (t.getCode() == KeyCode.F2) {
+        else if (t.getCode() == KeyCode.R) {
             return Akcje.RESET;
         }
         return Akcje.NONE;
