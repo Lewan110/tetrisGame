@@ -132,7 +132,6 @@ public class MainController implements Initializable, Observer {
             tetris.setPace(paceSlider.getValue());
             currentScoreLabel.setText("score : " + g.score);
             levelLabel.setText(Integer.toString(g.level));
-            pausedImage.setVisible(g.gamePaused);
             name.setText(gracz.getName());
             canvasFX.drawTetrimino(g.tetrimino);
         } 

@@ -53,11 +53,6 @@
       <Font name="System Bold" size="18.0" />
     </font>
     </Label>
-    <ImageView fx:id="pausedImage" fitHeight="24.0" fitWidth="100.0" layoutX="221.0" layoutY="247.0" pickOnBounds="true" visible="false">
-      <image>
-        <Image url="@img/pause.png" />
-      </image>
-    </ImageView>
       <Slider fx:id="paceSlider" layoutX="227.0" layoutY="246.0" prefHeight="18.0" prefWidth="100.0" />
   <Label layoutX="238.0" layoutY="316.0" text="R - RESET" textFill="WHITE">
     <font>
