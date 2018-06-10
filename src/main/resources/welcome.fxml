@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
 
-<AnchorPane id="AnchorPane" fx:id="welcome" minHeight="421.0" prefHeight="321.0" prefWidth="338.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="PowitalnyController">
+<AnchorPane id="AnchorPane" fx:id="welcome" minHeight="421.0" prefHeight="321.0" prefWidth="338.0" styleClass="background" stylesheets="@style.css" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.PowitalnyController">
     <Label layoutX="103.0" layoutY="36.0" text="ENTER YOUR NAME" />
     <Pane fx:id="namePane" layoutX="4.0" layoutY="258.0" prefHeight="57.000099999997474" prefWidth="290.0" />
     <TextField id="gamerName" layoutX="101.0" layoutY="74.0" opacity="0.57" prefHeight="33.0" prefWidth="136.0" fx:id="x1" />

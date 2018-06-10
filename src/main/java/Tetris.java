@@ -33,6 +33,17 @@ public class Tetris extends Observable {
     Observer observer;
     boolean gamePaused;
 
+    public static Tetrimino[] types=
+            {
+                    new Tetrimino(Tetrimino.TetriminoI,0),
+                    new Tetrimino(Tetrimino.TetriminoJ,1),
+                    new Tetrimino(Tetrimino.TetriminoL,2),
+                    new Tetrimino(Tetrimino.TetriminoO,3),
+                    new Tetrimino(Tetrimino.TetriminoS,4),
+                    new Tetrimino(Tetrimino.TetriminoT,5),
+                    new Tetrimino(Tetrimino.TetriminoT,6),
+
+            };
     
     public Tetris(int kolumny, int linie, MainCanvas canvas) throws IOException {
         this.kolumny = kolumny;
@@ -66,10 +77,10 @@ public class Tetris extends Observable {
         if (nastepneTetromino != null) {
             aktualneTetromino = nastepneTetromino;
         } else {
-            aktualneTetromino = Tetriminos.types[(int) Math.round(Math.random() * (Tetriminos.types.length - 1))];
+            aktualneTetromino = types[(int) Math.round(Math.random() * (types.length - 1))];
 
         }
-        nastepneTetromino = Tetriminos.types[(int) Math.round(Math.random() * (Tetriminos.types.length - 1))];
+        nastepneTetromino = types[(int) Math.round(Math.random() * (types.length - 1))];
         notifyObserver();
     }
 
@@ -279,10 +290,10 @@ public class Tetris extends Observable {
 
     public void HandleAction(Akcje akcje) {
         keyTyped = true;
-        if (akcje == Akcje.GO_LEFT) {
+        if (akcje == Akcje.LEFT) {
             padding = -1;
 
-        } else if (akcje == Akcje.GO_RIGHT) {
+        } else if (akcje == Akcje.RIGHT) {
             padding = 1;
         } else if (akcje == Akcje.ROTATE) {
             Tetrimino t = aktualneTetromino.clone();
@@ -291,7 +302,7 @@ public class Tetris extends Observable {
                 aktualneTetromino.rotateClockWise();
             }
 
-        } else if (akcje == Akcje.GO_DOWN) {
+        } else if (akcje == Akcje.DOWN) {
             while (jezeliTetrominoMozliweDoWyrysowania(aktualneTetromino,
                     new Pozycja(aktualnaPozycja.x, aktualnaPozycja.y + 1))) {
                 aktualnaPozycja.y = aktualnaPozycja.y + 1;

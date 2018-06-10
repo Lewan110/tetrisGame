@@ -1,4 +1,7 @@
+/**
+ * Typ enum -zdefiniowanie zbioru akcji dla gry
+ */
 
 public enum Akcje {
-    NONE,GO_LEFT,GO_RIGHT,GO_DOWN,ROTATE,RESET,PAUSE    
+    NONE,RESET, LEFT, RIGHT, DOWN,ROTATE,PAUSE
 }

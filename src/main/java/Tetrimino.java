@@ -1,6 +1,10 @@
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ *klasa do tworzenia oraz obslugi tetrominos
+ *
+ */
 public class Tetrimino implements Cloneable{
 
     public static final byte[][] TetriminoI = {
@@ -50,6 +54,9 @@ public class Tetrimino implements Cloneable{
         this.type = tetrimino.type;
     }
 
+    /**
+     *metoda obracajaca tetromino zgodnie z ruchem wskazowek zegara
+     */
     public Tetrimino rotateClockWise() {
         int n = this.cells.length;
         byte tmp;
@@ -67,12 +74,16 @@ public class Tetrimino implements Cloneable{
         return this;
        
 }
+
     @Override
    public Tetrimino clone(){
        Tetrimino t=new Tetrimino(this);
         return t;      
    }
-
+    /**
+     *metoda porownujaca dwa tetromino
+     * @param o -objekt porownywany
+     */
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

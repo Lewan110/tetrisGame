@@ -4,7 +4,7 @@ import java.util.prefs.Preferences;
 
 public class Wyniki {
 
-    public static final int Długosc_Wall_Of_Fame = 7;      //max długość tablicy najlepszych graczy
+    public static final int dlugosc_tablica_wynikow = 7;      //max długość tablicy najlepszych graczy
     private Gracz[] graczs;
     
     Preferences userPreferences;
@@ -12,14 +12,14 @@ public class Wyniki {
     public Wyniki() {
         userPreferences = Preferences.userRoot().node("/tetris/asd2");           //tutaj znajdują się wyniki
 
-        graczs =new Gracz[Długosc_Wall_Of_Fame];
+        graczs =new Gracz[dlugosc_tablica_wynikow];
         for (int i = 0; i< graczs.length; ++i) {
             graczs[i]=new Gracz();
         }
     }
     
     public Gracz[] getTopGamers(){
-        for (int i = 0; i < Długosc_Wall_Of_Fame; i++) {
+        for (int i = 0; i < dlugosc_tablica_wynikow; i++) {
             graczs[i].setScore( userPreferences.getInt("GAMER_"+(i+1) +"_SCORE", 0));
             graczs[i].setName( userPreferences.get("GAMER_"+(i+1) +"_NAME", ""));
             graczs[i].setLevel( userPreferences.getInt("GAMER_"+(i+1) +"_LEVEL", 0));
@@ -42,7 +42,7 @@ public class Wyniki {
     
     public void sortujGraczy(){
         Arrays.sort(graczs);
-        for (int i = 1; i <= Długosc_Wall_Of_Fame; i++) {
+        for (int i = 1; i <= dlugosc_tablica_wynikow; i++) {
             userPreferences.putInt("GAMER_"+i+"_SCORE", graczs[i-1].getScore());
             userPreferences.put("GAMER_"+i+"_NAME", graczs[i-1].getName());
             userPreferences.putInt("GAMER_"+i+"_LEVEL", graczs[i-1].getLevel());

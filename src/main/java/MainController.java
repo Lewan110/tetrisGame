@@ -24,6 +24,10 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ *klasa kontrolujaca obszar gry, wraz z panelem bocznym
+ *
+ */
 public class MainController implements Initializable, Observer {
 
 
@@ -55,17 +59,21 @@ public class MainController implements Initializable, Observer {
     Canvas          canvas2         = new Canvas(80, 80);   //next panel
     MainCanvas canvasFX        = new MainCanvas(canvas2);
     Canvas          background      = new Canvas(canvas.getWidth(), canvas.getHeight());    //tło
-    Tetris          tetris;
+    Tetris tetris;
     Image           image           = new Image("img/tetris-background.png");       //obraz tłą
-    Wyniki          hiscores        = new Wyniki();
+    Wyniki hiscores        = new Wyniki();
     Node            scoresDialogBox;
     Node            welcomeBox;
-
     int gameStarted=0;
     Gracz gracz = new Gracz();
-    
+
+    /**
+     *konstruktor tworzacy tradycjnego Tetrisa -10x20
+     *
+     */
     public MainController() throws IOException {
         tetris = new Tetris(10, 20, new MainCanvas(canvas));
+
     }
 
     @Override
@@ -87,13 +95,13 @@ public class MainController implements Initializable, Observer {
         hiscores.getTopGamers();
 
         try {
-            welcomeBox = FXMLLoader.load(MainController.class.getResource("welcome.fxml"));     //ładowanie okna ,,powitalnego"
+            welcomeBox = FXMLLoader.load(MainController.class.getResource("welcome.fxml"));     //ladowanie okna ,,powitalnego"
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         try {
-            scoresDialogBox = FXMLLoader.load(MainController.class.getResource("wyniki.fxml")); //Ładowanie okna wyników po zakończeniu gry
+            scoresDialogBox = FXMLLoader.load(MainController.class.getResource("wyniki.fxml")); //ladowanie okna wynikow po zakonczeniu gry
         } catch (IOException ex) {
             Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -109,11 +117,19 @@ public class MainController implements Initializable, Observer {
         tetris.input.handle(e);
     }
 
+    /**
+     *metoda pobierajaca tlo z danego obrazu
+     *
+     */
     private void rysujTlo() {
         GraphicsContext gc = background.getGraphicsContext2D();
         gc.drawImage(image, 0, 0, background.getWidth(), background.getHeight());
     }
 
+    /**
+     *klasa kontrolujaca obszar gry, wraz z panelem bocznym
+     *
+     */
     @Override
     public void update(Observable o, Object arg) {
 
@@ -190,13 +206,13 @@ public class MainController implements Initializable, Observer {
 
             endBtn.setOnAction((ActionEventevent) -> {
 
-                gamersData.remove(Wyniki.Długosc_Wall_Of_Fame -1);
+                gamersData.remove(Wyniki.dlugosc_tablica_wynikow -1);
 
             Platform.exit();
         });
         tryAgainBtn.setOnAction((ActionEventevent) -> {
 
-            gamersData.remove(Wyniki.Długosc_Wall_Of_Fame -1);
+            gamersData.remove(Wyniki.dlugosc_tablica_wynikow -1);
             hideScoresDialogBox();
             tetris.HandleAction(Akcje.RESET);
             animationTimer.start();

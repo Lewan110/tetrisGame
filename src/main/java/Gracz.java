@@ -1,4 +1,7 @@
 
+/**
+ * Klasa reprezentujaca gracza
+ */
 public class Gracz implements Comparable{
     String name;
     int score;
@@ -6,6 +9,11 @@ public class Gracz implements Comparable{
 
 
 
+    /**
+     * metoda do porownywania graczy z interfejsu comparable, bierze pod uwage tylko wynik
+     * @param o - objekt do porownania
+     * @return zwraca roznice w wynikach porownywanych graczy
+     */
     @Override
     public int compareTo(Object o) {
         if (o instanceof Gracz) {

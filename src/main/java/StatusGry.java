@@ -1,5 +1,8 @@
 
-
+/**
+ *klasa przechowujaca aktualny status gry
+ *
+ */
 public class StatusGry {
 
     public StatusGry() {
