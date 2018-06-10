@@ -17,7 +17,7 @@ public class Tetris extends Observable {
     private int linieUsuniete;
     private int poziom;
     private double pace=0;
-    private Cell[][] field;
+    private Komorka[][] field;
     private Tetrimino aktualneTetromino;
     private Tetrimino nastepneTetromino;
     private Pozycja aktualnaPozycja;
@@ -54,14 +54,17 @@ public class Tetris extends Observable {
         notifyObserver();
     }
 
+    /**
+     *metoda resetujaca stan gry
+     */
     private void resetGame() {
 
         gamePaused = false;
         koniecGry = false;
-        field = new Cell[linie][kolumny];
+        field = new Komorka[linie][kolumny];
         for (int i = 0; i < linie; i++) {
             for (int j = 0; j < kolumny; j++) {
-                field[i][j] = new Cell();
+                field[i][j] = new Komorka();
             }
         }
         score = 0;
@@ -72,6 +75,9 @@ public class Tetris extends Observable {
         DodajNoweTetromino();
     }
 
+    /**
+     *metoda dodajace nowe tetromino
+     */
     public void DodajNoweTetromino() {
         aktualnaPozycja = new Pozycja(initialPozycja.x, initialPozycja.y);
         if (nastepneTetromino != null) {
@@ -84,6 +90,9 @@ public class Tetris extends Observable {
         notifyObserver();
     }
 
+    /**
+     *metoda rysujaca pole gry
+     */
     public void rysujPole() {
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
@@ -95,6 +104,10 @@ public class Tetris extends Observable {
 
     }
 
+    /**
+     *metoda wykrywajaca czy jest linia jest pelna
+     * @param row nr linii
+     */
     private boolean pelnaLinia(int row) {
         for (int i = 0; i < field[row].length; i++) {
             if (field[row][i].empty == true) {
@@ -104,6 +117,9 @@ public class Tetris extends Observable {
         return true;
     }
 
+    /**
+     *
+     */
     public void rysujAktualneTetro() {
         int nbBlankLines = nbBlankLines(aktualneTetromino);
         int nbBlankCols = nbBlankCols(aktualneTetromino);
@@ -342,8 +358,5 @@ public class Tetris extends Observable {
         this.observer = observer;
     }
 
-    class Cell {
-        boolean empty = true;
-        int type = -1;
-    }
+
 }

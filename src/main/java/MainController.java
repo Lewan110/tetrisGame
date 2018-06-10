@@ -34,25 +34,21 @@ public class MainController implements Initializable, Observer {
     @FXML
     Pane boardPanel;
     @FXML
-    Pane scorePanel;
-    @FXML
-    Pane welcomePanel;
-    @FXML
     Pane nextPanel;
     @FXML
     AnchorPane mainPane;
     @FXML
     Label levelLabel;
-    @FXML 
-    ImageView pausedImage;
     @FXML
     Label currentScoreLabel;
-    @FXML
-    Label hiScoreLabel;
     @FXML
     Slider paceSlider;
     @FXML
     Label name;
+    @FXML
+    private void HandleKeyAction(KeyEvent e) {
+        tetris.input.handle(e);
+    }
 
     AnimationTimer  animationTimer;   
     Canvas          canvas          = new Canvas(200, 400); // obszar gry
@@ -76,8 +72,13 @@ public class MainController implements Initializable, Observer {
 
     }
 
+    /**
+     *metoda z interfejsu Initializable, wstrzykuje zależności oznaczone adnotacją
+     * @FXML by można było nimi manipulować
+     *
+     */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
+    public void initialize(URL url, ResourceBundle resourceBundle) {
         canvasFX.init(4, 4);        
         boardPanel.getChildren().add(background);
         boardPanel.getChildren().add(canvas);
@@ -112,10 +113,7 @@ public class MainController implements Initializable, Observer {
         paceSlider.setValue(0);
     }
 
-    @FXML
-    private void HandleKeyAction(KeyEvent e) {
-        tetris.input.handle(e);
-    }
+
 
     /**
      *metoda pobierajaca tlo z danego obrazu
@@ -128,7 +126,7 @@ public class MainController implements Initializable, Observer {
 
     /**
      *klasa kontrolujaca obszar gry, wraz z panelem bocznym
-     *
+     * @param o
      */
     @Override
     public void update(Observable o, Object arg) {
